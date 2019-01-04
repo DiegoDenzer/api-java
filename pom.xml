@@ -23,6 +23,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		
+		<spring-security-oauth2-version>2.2.1.RELEASE</spring-security-oauth2-version>
+		<spring-security-jwt-version>1.0.9.RELEASE</spring-security-jwt-version>
+		
+		
 	</properties>
 
 	<dependencies>
@@ -41,18 +46,37 @@
 			<scope>runtime</scope>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+		
 		<!--  Spring security -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		
+		<!--  Auth2 -->
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+			<version>${spring-security-oauth2-version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-jwt</artifactId>
+			<version>${spring-security-jwt-version}</version>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
 		<!-- mysql -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -77,6 +101,11 @@
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 		
 	</dependencies>
 	

@@ -11,6 +11,7 @@ import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,11 +33,13 @@ public class CategoriaResource {
 	private CategoriaRepository categoriaRepository;
 	
 	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
 	public List<Categoria> listar(){
 		return categoriaRepository.findAll();
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_CATEGORIA') and #oauth2.hasScope('write')")
 	public ResponseEntity<Categoria> criar(@Valid @RequestBody Categoria categoria, HttpServletResponse response ) {
 		//Salvando a nova categoria recebida pelo requestbody
 		Categoria nova = categoriaRepository.save(categoria);
@@ -49,6 +52,7 @@ public class CategoriaResource {
 	}
 	
 	@GetMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
 	public ResponseEntity<Categoria> buscarPeloCodigo(@PathVariable Long codigo) {
 		Optional<Categoria> buscada = categoriaRepository.findById(codigo);
 		return buscada.isPresent() ? ResponseEntity.ok(buscada.get()) : ResponseEntity.notFound().build();
@@ -57,6 +61,7 @@ public class CategoriaResource {
 	
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PreAuthorize("hasAuthority('ROLE_REMOVER_CATEGORIA') and #oauth2.hasScope('write')")
 	public void remover(@PathVariable Long codigo) {
 		categoriaRepository.deleteById(codigo);
 	}
